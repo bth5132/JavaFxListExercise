@@ -5,6 +5,7 @@
  */
 package populatelist;
 
+import com.sun.istack.internal.logging.Logger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,17 +48,25 @@ public class FXMLDocumentController implements Initializable {
   
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+    // Initialize SyncPeopleListView
+    SyncPeopleListView();
   }  
 
     @FXML
     private void handleBtnAddPersonClicked(MouseEvent event) {
-        // Build up full name
-        String fullName = tfFirstName.getText() + " " + tfLastName.getText();
-        // Debugged to be removed later
-        System.out.println(fullName);
-        // Debugging to be removed later
-        lvPeople.getItems().add(fullName);
+        Person newPerson = new Person();
+        newPerson.setFirstName(tfFirstName.getText());
+        newPerson.setLastName(tfLastName.getText());
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PopulateListPU");
+        
+        PersonJpaController jpaPerson = new PersonJpaController(emf);
+        
+        try {
+            jpaPerson.create(newPerson);
+        } catch (Exception ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void SyncPeopleListView() {
@@ -77,7 +86,6 @@ public class FXMLDocumentController implements Initializable {
         for (Person p : people) {
             String fullName = p.getFirstName() + " " + p.getLastName();
             lvPeople.getItems().add(fullName);
-            
         }
     }
   
