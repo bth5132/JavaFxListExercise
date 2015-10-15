@@ -66,7 +66,8 @@ public class FXMLDocumentController implements Initializable {
         try {
             jpaPerson.create(newPerson);
         } catch (Exception ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
         }
     }
     
