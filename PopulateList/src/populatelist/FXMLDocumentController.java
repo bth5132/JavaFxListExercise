@@ -5,11 +5,9 @@
  */
 package populatelist;
 
-import com.sun.istack.internal.logging.Logger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +38,8 @@ public class FXMLDocumentController implements Initializable {
     private TextField tfLastName;
     @FXML
     private Button btnAddPerson;
+    @FXML
+    private Button btnDelete;
   
   @FXML
   private void handleButtonAction(ActionEvent event) {
@@ -89,6 +89,10 @@ public class FXMLDocumentController implements Initializable {
             String fullName = p.getFirstName() + " " + p.getLastName();
             lvPeople.getItems().add(fullName);
         }
+    }
+
+    @FXML
+    private void handleBtnDeletePersonClicked(MouseEvent event) {
     }
   
 }
